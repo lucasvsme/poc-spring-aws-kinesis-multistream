@@ -16,7 +16,8 @@ dependencies {
 
     implementation("org.springframework", "spring-context", properties["version.spring"].toString())
     implementation("com.fasterxml.jackson.core", "jackson-databind", properties["version.jackson"].toString())
-    implementation("software.amazon.kinesis", "amazon-kinesis-client", properties["version.kcl"].toString())
+    implementation("com.amazonaws", "aws-java-sdk-s3", properties["version.aws.v1"].toString())
+    implementation("software.amazon.kinesis", "amazon-kinesis-client", properties["version.aws.kcl"].toString())
 
     testImplementation("org.junit.jupiter", "junit-jupiter", properties["version.junit"].toString())
     testImplementation("org.mockito", "mockito-core", properties["version.mockito"].toString())
