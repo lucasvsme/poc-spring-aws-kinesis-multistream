@@ -20,6 +20,10 @@ dependencies {
 
     testImplementation("org.junit.jupiter", "junit-jupiter", properties["version.junit"].toString())
     testImplementation("org.mockito", "mockito-core", properties["version.mockito"].toString())
+    testImplementation("org.springframework", "spring-test", properties["version.spring"].toString())
+    testImplementation("org.testcontainers", "testcontainers", properties["version.testcontainers"].toString())
+    testImplementation("org.testcontainers", "localstack", properties["version.testcontainers"].toString())
+    testImplementation("org.testcontainers", "junit-jupiter", properties["version.testcontainers"].toString())
 }
 
 java {
