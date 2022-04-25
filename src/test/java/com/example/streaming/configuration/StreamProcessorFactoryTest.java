@@ -1,7 +1,8 @@
 package com.example.streaming.configuration;
 
+import com.example.testing.ExampleStreamConfiguration;
 import com.example.testing.ExampleStreamProcessor;
-import com.example.testing.StreamProcessorFactoryTestConfiguration;
+import com.example.testing.KinesisTestConfiguration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
@@ -16,7 +17,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringJUnitConfig(StreamProcessorFactoryTestConfiguration.class)
+@SpringJUnitConfig({
+    KinesisTestConfiguration.class,
+    ExampleStreamConfiguration.class,
+    StreamProcessorFactoryTestConfiguration.class
+})
 class StreamProcessorFactoryTest {
 
     private ShardRecordProcessorFactory factory;

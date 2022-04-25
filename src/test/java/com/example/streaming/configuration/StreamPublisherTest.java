@@ -30,7 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @SpringJUnitConfig({
     AWSConfiguration.class,
     KinesisConfiguration.class,
-    JSONConfiguration.class
+    JSONConfiguration.class,
+    StreamPublisherTestConfiguration.class
 })
 @Testcontainers
 class StreamPublisherTest {
