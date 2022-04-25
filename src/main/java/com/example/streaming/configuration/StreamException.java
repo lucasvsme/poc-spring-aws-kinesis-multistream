@@ -2,6 +2,7 @@ package com.example.streaming.configuration;
 
 import com.example.event.EventException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.beans.BeansException;
 import software.amazon.awssdk.core.exception.SdkException;
 
 import java.io.IOException;
@@ -26,5 +27,9 @@ public final class StreamException extends EventException {
 
     public StreamException(IOException exception) {
         super("Error deserializing event to JSON", exception);
+    }
+
+    public StreamException(BeansException exception) {
+        super("Could not find event consumer", exception);
     }
 }
