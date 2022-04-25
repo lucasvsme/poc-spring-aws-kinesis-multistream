@@ -1,0 +1,10 @@
+{
+  "type": "com.example.StudentEnrolled",
+  "payload": {
+    "enrollmentId": "999e002a-69ae-453a-9d5a-11b3c5c22d46"
+  },
+  "metadata": {
+    "courseId": "3851b640-2a53-4f3b-8759-079612ea5a1a",
+    "studentId": "56a3da44-5278-405e-bf4b-311b344ea9e9"
+  }
+}

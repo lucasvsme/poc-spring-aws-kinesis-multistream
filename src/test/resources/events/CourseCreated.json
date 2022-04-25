@@ -1,0 +1,12 @@
+{
+  "type": "com.example.CourseCreated",
+  "payload": {
+    "course": {
+      "id": "2630f200-3696-4832-85c9-3651ef9738c4",
+      "code": "CS101",
+      "title": "Introduction to Computer Science",
+      "rating": 4
+    }
+  },
+  "metadata": {}
+}

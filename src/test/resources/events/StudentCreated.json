@@ -1,0 +1,11 @@
+{
+  "type": "com.example.StudentCreated",
+  "payload": {
+    "student": {
+      "id": "511937ad-ef50-4c22-8899-17017090e0d2",
+      "firstName": "John",
+      "lastName": "Smith"
+    }
+  },
+  "metadata": {}
+}
