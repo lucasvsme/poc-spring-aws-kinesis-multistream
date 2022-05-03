@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringJUnitConfig(JSONConfiguration.class)
 class EventMixInTest {
@@ -29,6 +30,7 @@ class EventMixInTest {
         final var event = objectMapper.readValue(json, Event.class);
 
         assertEquals(object, event);
+        assertNotNull(object.id());
     }
 
     @Test
@@ -39,6 +41,7 @@ class EventMixInTest {
         final var event = objectMapper.readValue(json, Event.class);
 
         assertEquals(object, event);
+        assertNotNull(object.id());
     }
 
     @Test
@@ -49,5 +52,6 @@ class EventMixInTest {
         final var event = objectMapper.readValue(json, Event.class);
 
         assertEquals(object, event);
+        assertNotNull(object.id());
     }
 }
