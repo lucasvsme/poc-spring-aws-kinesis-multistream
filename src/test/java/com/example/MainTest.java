@@ -21,9 +21,14 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.shaded.org.awaitility.Awaitility;
 import org.testcontainers.utility.DockerImageName;
 import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
 import software.amazon.awssdk.services.kinesis.model.CreateStreamRequest;
+import software.amazon.awssdk.services.kinesis.model.DescribeStreamRequest;
+import software.amazon.awssdk.services.kinesis.model.StreamStatus;
+
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -73,7 +78,19 @@ class MainTest {
                 .join();
         });
 
-        Thread.sleep(2000); // Waiting for streams to become ACTIVE
+        streamProperties.forEach((name, properties) -> {
+            final var describeStreamRequest = DescribeStreamRequest.builder()
+                    .streamName(properties.stream().value())
+                    .build();
+
+            Awaitility.await()
+                    .timeout(Duration.ofSeconds(10))
+                    .until(() -> {
+                        final var describeStreamResponse = kinesisAsyncClient.describeStream(describeStreamRequest).join();
+                        final var streamDescription = describeStreamResponse.streamDescription();
+                        return StreamStatus.ACTIVE.equals(streamDescription.streamStatus());
+                    });
+        });
     }
 
     private CourseService courseService;
