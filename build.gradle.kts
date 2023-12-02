@@ -1,5 +1,3 @@
-import org.gradle.api.tasks.testing.logging.TestLogEvent
-
 plugins {
     java
     jacoco
@@ -10,42 +8,44 @@ repositories {
 }
 
 dependencies {
-    implementation("org.apache.logging.log4j", "log4j-api", properties["version.log4j"].toString())
-    implementation("org.apache.logging.log4j", "log4j-core", properties["version.log4j"].toString())
-    implementation("org.slf4j", "slf4j-simple", properties["version.slf4j"].toString())
+    implementation(platform("org.springframework:spring-framework-bom:6.1.1"))
+    implementation("org.springframework:spring-context")
+    testImplementation("org.springframework:spring-test")
 
-    implementation("org.springframework", "spring-context", properties["version.spring"].toString())
-    implementation("com.fasterxml.jackson.core", "jackson-databind", properties["version.jackson"].toString())
-    implementation("com.amazonaws", "aws-java-sdk-s3", properties["version.aws.v1"].toString())
-    implementation("software.amazon.kinesis", "amazon-kinesis-client", properties["version.aws.kcl"].toString())
+    implementation(platform("org.slf4j:slf4j-bom:2.0.9"))
+    implementation("org.slf4j:slf4j-simple")
 
-    testImplementation("org.junit.jupiter", "junit-jupiter", properties["version.junit"].toString())
-    testImplementation("org.mockito", "mockito-core", properties["version.mockito"].toString())
-    testImplementation("org.springframework", "spring-test", properties["version.spring"].toString())
-    testImplementation("org.testcontainers", "testcontainers", properties["version.testcontainers"].toString())
-    testImplementation("org.testcontainers", "localstack", properties["version.testcontainers"].toString())
-    testImplementation("org.testcontainers", "junit-jupiter", properties["version.testcontainers"].toString())
+    implementation(platform("org.apache.logging.log4j:log4j-bom:2.22.0"))
+    implementation("org.apache.logging.log4j:log4j-api")
+    implementation("org.apache.logging.log4j:log4j-core")
+
+    implementation(platform("org.testcontainers:testcontainers-bom:1.19.3"))
+    testImplementation("org.testcontainers:testcontainers")
+    testImplementation("org.testcontainers:localstack")
+    testImplementation("org.testcontainers:junit-jupiter")
+
+    implementation(platform("org.junit:junit-bom:5.10.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+
+    implementation(platform("org.mockito:mockito-bom:5.8.0"))
+    testImplementation("org.mockito:mockito-core")
+
+    implementation(platform("com.fasterxml.jackson:jackson-bom:2.16.0"))
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+
+    implementation(platform("com.amazonaws:aws-java-sdk-bom:1.12.604"))
+    implementation("com.amazonaws:aws-java-sdk-s3")
+
+    implementation("software.amazon.kinesis:amazon-kinesis-client:2.5.3")
 }
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
-}
-
-tasks.withType<JavaCompile> {
-    options.compilerArgs.add("--enable-preview")
-}
-
-tasks.withType<JavaExec> {
-    jvmArgs("--enable-preview")
 }
 
 tasks.test {
     useJUnitPlatform()
-    jvmArgs("--enable-preview")
-    testLogging {
-        events = setOf(TestLogEvent.PASSED, TestLogEvent.FAILED, TestLogEvent.SKIPPED)
-    }
-    finalizedBy(tasks.withType<JacocoReport>())
+    finalizedBy(tasks.jacocoTestReport)
 }
